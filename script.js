@@ -1,54 +1,106 @@
 // Attend que le DOM (la structure HTML) soit entièrement chargé
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Gestion du système d'onglets (Tabs) pour les expériences ---
+    // --- NOUVEAU : Gestion du Thème (Clair/Sombre) ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const docElement = document.documentElement; // Cible la balise <html>
+
+    // 1. Détecter la préférence système
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    // 2. Détecter la préférence sauvegardée (localStorage)
+    const savedTheme = localStorage.getItem('theme');
+    
+    let currentTheme;
+    
+    // 3. Appliquer le thème au chargement (Priorité : Sauvegardé > Système > Défaut)
+    if (savedTheme) {
+        // Si un thème est sauvegardé, on l'utilise
+        currentTheme = savedTheme;
+    } else if (systemPrefersDark.matches) {
+        // Sinon, on utilise la préférence système
+        currentTheme = 'dark';
+    } else {
+        // Sinon, le défaut est 'light'
+        currentTheme = 'light';
+    }
+    
+    // Applique l'attribut [data-theme] à la balise <html>
+    docElement.setAttribute('data-theme', currentTheme);
+    
+    // 4. Mettre à jour l'état visuel de l'interrupteur
+    if (currentTheme === 'dark') {
+        themeToggle.checked = true;
+    }
+    
+    // 5. Ajouter un écouteur d'événement au 'change' sur l'interrupteur
+    themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+            // Si coché -> Thème sombre
+            docElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark'); // Sauvegarde le choix
+        } else {
+            // Si décoché -> Thème clair
+            docElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light'); // Sauvegarde le choix
+        }
+    });
+    
+    // 6. (Optionnel) Écouter les changements de préférence système en temps réel
+    // Si l'utilisateur change son paramètre système PENDANT qu'il est sur le site
+    systemPrefersDark.addEventListener('change', (e) => {
+        // On n'applique le changement que s'il n'a PAS fait de choix manuel
+        if (!localStorage.getItem('theme')) {
+            if (e.matches) {
+                docElement.setAttribute('data-theme', 'dark');
+                themeToggle.checked = true;
+            } else {
+                docElement.setAttribute('data-theme', 'light');
+                themeToggle.checked = false;
+            }
+        }
+    });
+    
+    // --- FIN de la gestion du thème ---
+
+
+    // --- (Code existant) Gestion du système d'onglets (Tabs) ---
     
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    // Fonction pour afficher un onglet spécifique
     function showTab(index) {
-        // Cacher tous les contenus
         tabContents.forEach(content => {
             content.classList.remove('active');
         });
-        
-        // Désactiver tous les boutons
         tabButtons.forEach(btn => {
             btn.classList.remove('active');
         });
-        
-        // Afficher le contenu de l'onglet cliqué
         if (tabContents[index]) {
             tabContents[index].classList.add('active');
         }
-        
-        // Activer le bouton cliqué
         if (tabButtons[index]) {
             tabButtons[index].classList.add('active');
         }
     }
 
-    // Ajouter un écouteur d'événement 'click' à chaque bouton d'onglet
     tabButtons.forEach((button, index) => {
         button.addEventListener('click', () => {
             showTab(index);
         });
     });
 
-    // --- Gestion du bouton "Scroll to Top" ---
+    // --- (Code existant) Gestion du bouton "Scroll to Top" ---
 
     const scrollTopBtn = document.querySelector('.scroll-top');
 
-    // Fonction pour remonter en haut de page
     function scrollToTop() {
         window.scrollTo({
             top: 0,
-            behavior: 'smooth' // Défilement fluide
+            behavior: 'smooth'
         });
     }
 
-    // Fonction pour afficher/cacher le bouton en fonction du défilement
     function handleScroll() {
         if (window.scrollY > 300) {
             scrollTopBtn.classList.add('visible');
@@ -57,22 +109,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Ajouter les écouteurs d'événements
     scrollTopBtn.addEventListener('click', scrollToTop);
     window.addEventListener('scroll', handleScroll);
 
-    // --- Gestion du défilement fluide pour les ancres (ex: lien "Me contacter") ---
+    // --- (Code existant) Gestion du défilement fluide pour les ancres ---
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault(); // Empêche le comportement par défaut (saut brusque)
+            e.preventDefault(); 
             
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
                 targetElement.scrollIntoView({
-                    behavior: 'smooth' // Défilement fluide vers la section
+                    behavior: 'smooth'
                 });
             }
         });
