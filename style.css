@@ -1,3 +1,73 @@
+/* --- VARIABLES DE THÈME --- */
+:root {
+    /* Thème Clair (Défaut) */
+    --color-bg: #f4f6f8;
+    --color-text-primary: #2c3e50;
+    --color-text-secondary: #444;
+    --color-text-tertiary: #555;
+    --color-text-muted: #666;
+    --color-text-link: #333;
+    --color-text-input: #222;
+    --color-job-title: #1a1a1a;
+    --color-accent: #00d4ff;
+    
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --glass-shadow: rgba(0, 0, 0, 0.1);
+    --glass-hover-border: rgba(0, 0, 0, 0.1);
+    --glass-shine: rgba(255, 255, 255, 0.4);
+    
+    --item-bg: rgba(0, 0, 0, 0.02);
+    --item-border: rgba(0, 0, 0, 0.05);
+    
+    --tab-bg: rgba(0, 0, 0, 0.03);
+    --tab-border: rgba(0, 0, 0, 0.05);
+    
+    --input-bg: rgba(0, 0, 0, 0.03);
+    --input-border: rgba(0, 0, 0, 0.1);
+    
+    --orb-opacity: 0.4;
+    --scroll-top-bg: rgba(0, 212, 255, 0.15);
+    
+    --toggle-slider-bg: #fff;
+    --toggle-slider-shadow: 0 0 2px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] {
+    /* Thème Sombre */
+    --color-bg: #0a0a0a;
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #c0c0c0;
+    --color-text-tertiary: #b0b0b0;
+    --color-text-muted: #888;
+    --color-text-link: #e0e0e0;
+    --color-text-input: #e0e0e0;
+    --color-job-title: #ffffff;
+    --color-accent: #00d4ff; /* Inchangé */
+
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
+    --glass-hover-border: rgba(255, 255, 255, 0.2);
+    --glass-shine: rgba(255, 255, 255, 0.1);
+
+    --item-bg: rgba(255, 255, 255, 0.03);
+    --item-border: rgba(255, 255, 255, 0.1);
+
+    --tab-bg: rgba(255, 255, 255, 0.05);
+    --tab-border: rgba(255, 255, 255, 0.1);
+
+    --input-bg: rgba(255, 255, 255, 0.05);
+    --input-border: rgba(255, 255, 255, 0.1);
+    
+    --orb-opacity: 0.6;
+    --scroll-top-bg: rgba(0, 212, 255, 0.1);
+    
+    --toggle-slider-bg: #444;
+    --toggle-slider-shadow: none;
+}
+
+
 /* --- Styles de base et Reset --- */
 * {
     margin: 0;
@@ -7,13 +77,61 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: #f4f6f8; 
+    background: var(--color-bg); 
     min-height: 100vh;
     padding: 40px 20px;
     line-height: 1.6;
-    color: #2c3e50; 
+    color: var(--color-text-primary); 
     overflow-x: hidden;
+    transition: background 0.3s, color 0.3s;
 }
+
+/* --- NOUVEAU : Style de l'interrupteur de thème --- */
+.theme-switcher {
+    position: fixed;
+    top: 40px;
+    left: 40px;
+    z-index: 1001;
+}
+.theme-switcher input[type="checkbox"] {
+    display: none;
+}
+.theme-switcher label {
+    cursor: pointer;
+    display: block;
+    width: 60px;
+    height: 30px;
+    background: var(--tab-bg);
+    border: 1px solid var(--tab-border);
+    border-radius: 50px;
+    position: relative;
+    transition: background 0.3s;
+}
+.theme-switcher label::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--toggle-slider-bg);
+    box-shadow: var(--toggle-slider-shadow);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s;
+}
+.theme-switcher input:checked + label::after {
+    transform: translateX(30px);
+}
+.theme-switcher .sun-icon, .theme-switcher .moon-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    line-height: 1;
+}
+.theme-switcher .sun-icon { left: 7px; }
+.theme-switcher .moon-icon { right: 7px; }
+
 
 /* --- Animation de fond (Orbes) --- */
 .bg-animation {
@@ -30,8 +148,9 @@ body {
     position: absolute;
     border-radius: 50%;
     filter: blur(100px);
-    opacity: 0.4; 
+    opacity: var(--orb-opacity); 
     animation: float 20s infinite ease-in-out;
+    transition: opacity 0.3s;
 }
 
 .orb1 {
@@ -76,14 +195,14 @@ body {
 }
 
 .glass-card {
-    background: rgba(255, 255, 255, 0.4); 
+    background: var(--glass-bg); 
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px); /* Safari */
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 30px;
-    border: 1px solid rgba(0, 0, 0, 0.05); 
+    border: 1px solid var(--glass-border); 
     padding: 50px;
     margin-bottom: 30px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 8px 32px var(--glass-shadow); 
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -96,7 +215,7 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent); 
+    background: linear-gradient(90deg, transparent, var(--glass-shine), transparent); 
     transition: left 0.5s;
 }
 
@@ -106,7 +225,7 @@ body {
 
 .glass-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(0, 0, 0, 0.1); 
+    border-color: var(--glass-hover-border); 
     box-shadow: 0 12px 48px rgba(0, 200, 255, 0.2); 
 }
 
@@ -136,7 +255,7 @@ h1 {
 
 .subtitle {
     font-size: 1.5em;
-    color: #555; 
+    color: var(--color-text-tertiary); 
     margin-bottom: 10px;
     font-weight: 300;
 }
@@ -151,11 +270,11 @@ h1 {
 }
 
 .contact-item {
-    background: rgba(0, 0, 0, 0.03);
+    background: var(--item-bg);
     backdrop-filter: blur(10px);
     padding: 12px 24px;
     border-radius: 50px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--item-border);
     transition: all 0.3s;
     display: flex;
     align-items: center;
@@ -169,10 +288,15 @@ h1 {
 }
 
 .contact-item a {
-    color: #333;
+    color: var(--color-text-link);
     text-decoration: none;
     position: relative;
     z-index: 1; 
+    transition: color 0.3s;
+}
+
+.contact-item:hover a {
+    color: var(--color-accent);
 }
 
 /* --- Titres de section --- */
@@ -202,7 +326,7 @@ h2::after {
 /* --- Section Profil --- */
 .profile-text {
     font-size: 1.2em;
-    color: #444; 
+    color: var(--color-text-secondary); 
     line-height: 1.8;
 }
 
@@ -215,15 +339,15 @@ h2::after {
 }
 
 .skill-item {
-    background: rgba(0, 0, 0, 0.02);
+    background: var(--item-bg);
     backdrop-filter: blur(10px);
     padding: 20px 25px;
     border-radius: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--item-border);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    color: #333; 
+    color: var(--color-text-secondary); 
 }
 
 .skill-item::before {
@@ -241,7 +365,7 @@ h2::after {
     background: rgba(0, 212, 255, 0.05); 
     border-color: rgba(0, 212, 255, 0.3);
     transform: translateX(10px);
-    color: #000;
+    color: var(--color-text-primary);
 }
 
 .skill-item:hover::before {
@@ -258,15 +382,15 @@ h2::after {
 }
 
 .tab-btn {
-    background: rgba(0, 0, 0, 0.03);
+    background: var(--tab-bg);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--tab-border);
     padding: 14px 28px;
     border-radius: 50px;
     cursor: pointer;
     font-size: 1em;
     transition: all 0.3s;
-    color: #555;
+    color: var(--color-text-tertiary);
     position: relative;
     overflow: hidden;
 }
@@ -291,13 +415,13 @@ h2::after {
 
 .tab-btn:hover {
     border-color: rgba(0, 212, 255, 0.5);
-    color: #00d4ff;
+    color: var(--color-accent);
 }
 
 .tab-btn.active {
     background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(168, 85, 247, 0.2));
-    border-color: #00d4ff;
-    color: #00d4ff;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
 }
 
 .tab-btn span {
@@ -327,12 +451,12 @@ h2::after {
 
 /* --- Cartes d'Expérience et Formation --- */
 .experience-item, .formation-item {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--item-bg);
     backdrop-filter: blur(10px);
     padding: 30px;
     margin-bottom: 25px;
     border-radius: 25px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--item-border);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
@@ -369,7 +493,7 @@ h2::after {
 .job-title {
     font-size: 1.5em;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--color-job-title);
     margin-bottom: 8px;
     position: relative;
     z-index: 1;
@@ -377,7 +501,7 @@ h2::after {
 
 .company {
     font-size: 1.2em;
-    color: #00d4ff; 
+    color: var(--color-accent); 
     font-weight: 500;
     margin-bottom: 8px;
     position: relative;
@@ -385,7 +509,7 @@ h2::after {
 }
 
 .period {
-    color: #666;
+    color: var(--color-text-muted);
     font-style: italic;
     margin-bottom: 15px;
     position: relative;
@@ -393,7 +517,7 @@ h2::after {
 }
 
 .description {
-    color: #444;
+    color: var(--color-text-secondary);
     line-height: 1.8;
     position: relative;
     z-index: 1;
@@ -414,17 +538,17 @@ h2::after {
 .form-group label {
     margin-bottom: 10px;
     font-size: 1.1em;
-    color: #555;
+    color: var(--color-text-tertiary);
 }
 
 .contact-form input,
 .contact-form textarea {
-    background: rgba(0, 0, 0, 0.03);
+    background: var(--input-bg);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--input-border);
     padding: 15px 20px;
     border-radius: 15px;
-    color: #222;
+    color: var(--color-text-input);
     font-size: 1em;
     font-family: inherit;
     transition: all 0.3s;
@@ -433,7 +557,7 @@ h2::after {
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
-    border-color: #00d4ff;
+    border-color: var(--color-accent);
     background: rgba(0, 212, 255, 0.1); 
     box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
 }
@@ -445,14 +569,14 @@ h2::after {
 
 .submit-btn {
     background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(168, 85, 247, 0.2));
-    border: 1px solid #00d4ff;
+    border: 1px solid var(--color-accent);
     padding: 16px 30px;
     border-radius: 50px;
     cursor: pointer;
     font-size: 1.1em;
     font-weight: 500;
     transition: all 0.3s;
-    color: #00d4ff;
+    color: var(--color-accent);
     position: relative;
     overflow: hidden;
 }
@@ -469,6 +593,10 @@ h2::after {
     transform: translateY(-3px);
 }
 
+[data-theme="dark"] .submit-btn:hover {
+    color: #fff;
+}
+
 
 /* --- Bouton Scroll-to-Top --- */
 .scroll-top {
@@ -477,7 +605,7 @@ h2::after {
     right: 40px;
     width: 60px;
     height: 60px;
-    background: rgba(0, 212, 255, 0.15); 
+    background: var(--scroll-top-bg); 
     backdrop-filter: blur(10px);
     border: 1px solid rgba(0, 212, 255, 0.3);
     border-radius: 50%;
@@ -489,7 +617,7 @@ h2::after {
     visibility: hidden; 
     transition: all 0.3s;
     z-index: 100;
-    color: #00d4ff;
+    color: var(--color-accent);
     font-size: 24px;
 }
 
@@ -526,109 +654,43 @@ section:nth-of-type(5) { animation-delay: 0.5s; }
     }
 }
 
-/* --- RÈGLES RESPONSIVES (LES VOICI !) --- */
+/* --- Règles de Responsivité --- */
 
-/* Pour Tablettes */
 @media (max-width: 992px) {
-    body {
-        padding: 30px 15px;
-    }
-    
-    .glass-card {
-        padding: 40px 30px;
-    }
-
-    h1 {
-        font-size: 3em;
-    }
-
-    h2 {
-        font-size: 2.2em;
-    }
+    body { padding: 30px 15px; }
+    .glass-card { padding: 40px 30px; }
+    h1 { font-size: 3em; }
+    h2 { font-size: 2.2em; }
+    /* Ajustement position toggle */
+    .theme-switcher { top: 30px; left: 30px; }
 }
 
-/* Pour Mobiles (C'est la partie la plus importante pour votre téléphone) */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2.5em; /* Titre plus petit */
-    }
-
-    header {
-        padding: 40px 10px;
-    }
-
-    .glass-card {
-        padding: 30px 20px; /* Moins d'espace sur les côtés */
-        border-radius: 25px;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr; /* Les compétences passent sur 1 colonne */
-    }
-
-    h2 {
-        font-size: 2em; /* Titres de section plus petits */
-    }
-
-    .nav-tabs {
-        flex-direction: column; /* Les onglets se mettent en colonne */
-        gap: 10px;
-    }
-
-    .tab-btn {
-        width: 100%;
-    }
-
-    .contact-info {
-        gap: 15px;
-    }
-
-    .scroll-top {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-        right: 20px;
-        bottom: 20px;
-    }
+    h1 { font-size: 2.5em; }
+    header { padding: 40px 10px; }
+    .glass-card { padding: 30px 20px; border-radius: 25px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    h2 { font-size: 2em; }
+    .nav-tabs { flex-direction: column; gap: 10px; }
+    .tab-btn { width: 100%; }
+    .contact-info { gap: 15px; }
+    .scroll-top { width: 50px; height: 50px; font-size: 20px; right: 20px; bottom: 20px; }
+    /* Ajustement position toggle */
+    .theme-switcher { top: 30px; left: 20px; }
 }
 
-/* Pour Petits Mobiles */
 @media (max-width: 480px) {
-    body {
-        padding: 20px 10px;
-    }
-
-    h1 {
-        font-size: 2.2em;
-    }
-
-    h2 {
-        font-size: 1.8em;
-    }
-
-    .subtitle {
-        font-size: 1.2em;
-    }
-
-    .glass-card {
-        padding: 25px 15px;
-    }
-
-    .contact-item {
-        width: 100%;
-        justify-content: center; 
-        padding: 10px 20px;
-    }
-
-    .contact-info {
-        gap: 10px;
-    }
-
-    .tab-btn {
-        padding: 12px 20px;
-    }
-
-    .experience-item, .formation-item {
-        padding: 25px;
-    }
+    body { padding: 20px 10px; }
+    /* Ajustement pour que le titre ne touche pas le toggle */
+    .container { margin-top: 50px; } 
+    h1 { font-size: 2.2em; }
+    h2 { font-size: 1.8em; }
+    .subtitle { font-size: 1.2em; }
+    .glass-card { padding: 25px 15px; }
+    .contact-item { width: 100%; justify-content: center; padding: 10px 20px; }
+    .contact-info { gap: 10px; }
+    .tab-btn { padding: 12px 20px; }
+    .experience-item, .formation-item { padding: 25px; }
+    /* Ajustement position toggle */
+    .theme-switcher { top: 20px; left: 20px; }
 }
