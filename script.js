@@ -113,18 +113,22 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', handleScroll);
 
     // --- (Code existant) Gestion du défilement fluide pour les ancres ---
+    // Ce code gère AUTOMATIQUEMENT les nouveaux liens de la nav !
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            e.preventDefault(); 
+            // On laisse le comportement natif 'smooth' (défini dans le CSS)
+            // e.preventDefault(); // On enlève le preventDefault pour utiliser le scroll-behavior natif
             
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth'
-                });
+                // On s'assure juste que le focus est mis sur la section
+                // Le défilement est géré par 'scroll-behavior: smooth'
+                setTimeout(() => {
+                    targetElement.focus();
+                }, 0); // Léger délai pour assurer le scroll
             }
         });
     });
