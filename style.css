@@ -75,6 +75,11 @@
     box-sizing: border-box;
 }
 
+/* Scroll fluide natif */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: var(--color-bg); 
@@ -229,6 +234,43 @@ body {
     box-shadow: 0 12px 48px rgba(0, 200, 255, 0.2); 
 }
 
+/* --- NOUVEAU : Barre de Navigation --- */
+nav.main-nav {
+    padding: 20px;
+    /* On enlève la marge du bas de la carte nav pour la coller à la section profil */
+    margin-bottom: 0; 
+    border-bottom-left-radius: 0; /* Effet visuel "collé" */
+    border-bottom-right-radius: 0;
+}
+/* La section qui suit la nav doit aussi être "collée" */
+#profil .glass-card {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+nav.main-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; 
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+nav.main-nav a {
+    text-decoration: none;
+    color: var(--color-text-link);
+    font-weight: 500;
+    font-size: 1.1em;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+nav.main-nav a:hover,
+nav.main-nav a:focus {
+    color: var(--color-accent);
+    background: rgba(0, 212, 255, 0.1);
+}
+
 /* --- En-tête et Titres --- */
 header {
     text-align: center;
@@ -258,6 +300,18 @@ h1 {
     color: var(--color-text-tertiary); 
     margin-bottom: 10px;
     font-weight: 300;
+}
+
+/* NOUVEAU : Styles pour la localisation et l'école */
+.subtitle.location {
+    font-size: 1.1em;
+    color: var(--color-text-tertiary);
+    font-weight: 300;
+    margin-bottom: 15px;
+}
+.subtitle.company-school {
+    font-size: 1.1em;
+    color: var(--color-text-secondary);
 }
 
 /* --- Infos de contact (En-tête) --- */
@@ -636,12 +690,13 @@ h2::after {
 section {
     animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) backwards;
 }
-
-section:nth-of-type(1) { animation-delay: 0.1s; }
-section:nth-of-type(2) { animation-delay: 0.2s; }
-section:nth-of-type(3) { animation-delay: 0.3s; }
-section:nth-of-type(4) { animation-delay: 0.4s; }
-section:nth-of-type(5) { animation-delay: 0.5s; } 
+/* Délai d'animation ajusté pour la nav */
+nav.main-nav { animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) backwards; animation-delay: 0.1s; }
+section:nth-of-type(1) { animation-delay: 0.2s; }
+section:nth-of-type(2) { animation-delay: 0.3s; }
+section:nth-of-type(3) { animation-delay: 0.4s; }
+section:nth-of-type(4) { animation-delay: 0.5s; }
+section:nth-of-type(5) { animation-delay: 0.6s; } 
 
 @keyframes fadeInUp {
     from {
@@ -661,7 +716,6 @@ section:nth-of-type(5) { animation-delay: 0.5s; }
     .glass-card { padding: 40px 30px; }
     h1 { font-size: 3em; }
     h2 { font-size: 2.2em; }
-    /* Ajustement position toggle */
     .theme-switcher { top: 30px; left: 30px; }
 }
 
@@ -675,13 +729,18 @@ section:nth-of-type(5) { animation-delay: 0.5s; }
     .tab-btn { width: 100%; }
     .contact-info { gap: 15px; }
     .scroll-top { width: 50px; height: 50px; font-size: 20px; right: 20px; bottom: 20px; }
-    /* Ajustement position toggle */
     .theme-switcher { top: 30px; left: 20px; }
+    
+    /* NOUVEAU : Nav responsive */
+    nav.main-nav ul { gap: 10px; }
+    nav.main-nav a { font-size: 1em; padding: 8px 12px; }
+    /* Rétablir les radius pour la nav "collée" */
+    nav.main-nav, #profil .glass-card { border-radius: 25px; }
+    #profil .glass-card { margin-top: 30px; } /* Rétablir la marge standard */
 }
 
 @media (max-width: 480px) {
     body { padding: 20px 10px; }
-    /* Ajustement pour que le titre ne touche pas le toggle */
     .container { margin-top: 50px; } 
     h1 { font-size: 2.2em; }
     h2 { font-size: 1.8em; }
@@ -691,6 +750,16 @@ section:nth-of-type(5) { animation-delay: 0.5s; }
     .contact-info { gap: 10px; }
     .tab-btn { padding: 12px 20px; }
     .experience-item, .formation-item { padding: 25px; }
-    /* Ajustement position toggle */
     .theme-switcher { top: 20px; left: 20px; }
+    
+    /* NOUVEAU : Nav très responsive */
+    nav.main-nav ul {
+        flex-direction: column; 
+        gap: 5px;
+        align-items: stretch; /* Les liens prendront 100% de largeur */
+    }
+    nav.main-nav a {
+        display: block; 
+        text-align: center;
+    }
 }
