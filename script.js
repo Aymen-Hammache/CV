@@ -1,7 +1,8 @@
 // Attend que le DOM (la structure HTML) soit entièrement chargé
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- NOUVEAU : Gestion du Thème (Clair/Sombre) ---
+    // --- Gestion du Thème (Clair/Sombre) ---
+    // (Cette partie est correcte et n'a pas changé)
     const themeToggle = document.getElementById('theme-toggle');
     const docElement = document.documentElement; // Cible la balise <html>
 
@@ -15,13 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 3. Appliquer le thème au chargement (Priorité : Sauvegardé > Système > Défaut)
     if (savedTheme) {
-        // Si un thème est sauvegardé, on l'utilise
         currentTheme = savedTheme;
     } else if (systemPrefersDark.matches) {
-        // Sinon, on utilise la préférence système
         currentTheme = 'dark';
     } else {
-        // Sinon, le défaut est 'light'
         currentTheme = 'light';
     }
     
@@ -36,20 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 5. Ajouter un écouteur d'événement au 'change' sur l'interrupteur
     themeToggle.addEventListener('change', () => {
         if (themeToggle.checked) {
-            // Si coché -> Thème sombre
             docElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark'); // Sauvegarde le choix
+            localStorage.setItem('theme', 'dark');
         } else {
-            // Si décoché -> Thème clair
             docElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light'); // Sauvegarde le choix
+            localStorage.setItem('theme', 'light');
         }
     });
     
     // 6. (Optionnel) Écouter les changements de préférence système en temps réel
-    // Si l'utilisateur change son paramètre système PENDANT qu'il est sur le site
     systemPrefersDark.addEventListener('change', (e) => {
-        // On n'applique le changement que s'il n'a PAS fait de choix manuel
         if (!localStorage.getItem('theme')) {
             if (e.matches) {
                 docElement.setAttribute('data-theme', 'dark');
@@ -65,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- (Code existant) Gestion du système d'onglets (Tabs) ---
-    
+    // (Cette partie est correcte et n'a pas changé)
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -91,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- (Code existant) Gestion du bouton "Scroll to Top" ---
-
+    // (Cette partie est correcte et n'a pas changé)
     const scrollTopBtn = document.querySelector('.scroll-top');
 
     function scrollToTop() {
@@ -112,23 +106,22 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTopBtn.addEventListener('click', scrollToTop);
     window.addEventListener('scroll', handleScroll);
 
-    // --- (Code existant) Gestion du défilement fluide pour les ancres ---
-    // Ce code gère AUTOMATIQUEMENT les nouveaux liens de la nav !
-
+    // --- CORRECTION : Gestion du défilement fluide pour les ancres ---
+    // On revient à la méthode JS explicite avec e.preventDefault()
+    // qui est plus fiable et ne crée pas de conflits.
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
-            // On laisse le comportement natif 'smooth' (défini dans le CSS)
-            // e.preventDefault(); // On enlève le preventDefault pour utiliser le scroll-behavior natif
+            // On empêche le comportement par défaut (le saut brusque)
+            e.preventDefault(); 
             
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
 
             if (targetElement) {
-                // On s'assure juste que le focus est mis sur la section
-                // Le défilement est géré par 'scroll-behavior: smooth'
-                setTimeout(() => {
-                    targetElement.focus();
-                }, 0); // Léger délai pour assurer le scroll
+                // On utilise scrollIntoView pour un défilement fluide
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
             }
         });
     });
