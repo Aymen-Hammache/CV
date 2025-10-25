@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Gestion du Thème (Clair/Sombre) ---
-    // (Cette partie est correcte et n'a pas changé)
     const themeToggle = document.getElementById('theme-toggle');
     const docElement = document.documentElement; // Cible la balise <html>
 
@@ -58,8 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- FIN de la gestion du thème ---
 
 
-    // --- (Code existant) Gestion du système d'onglets (Tabs) ---
-    // (Cette partie est correcte et n'a pas changé)
+    // --- Gestion du système d'onglets (Tabs) ---
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -84,8 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- (Code existant) Gestion du bouton "Scroll to Top" ---
-    // (Cette partie est correcte et n'a pas changé)
+    // --- Gestion du bouton "Scroll to Top" ---
     const scrollTopBtn = document.querySelector('.scroll-top');
 
     function scrollToTop() {
@@ -106,9 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTopBtn.addEventListener('click', scrollToTop);
     window.addEventListener('scroll', handleScroll);
 
-    // --- CORRECTION : Gestion du défilement fluide pour les ancres ---
-    // On revient à la méthode JS explicite avec e.preventDefault()
-    // qui est plus fiable et ne crée pas de conflits.
+    // --- Gestion du défilement fluide pour les ancres ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             // On empêche le comportement par défaut (le saut brusque)
