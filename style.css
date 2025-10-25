@@ -33,9 +33,7 @@
     --toggle-slider-shadow: 0 0 2px rgba(0,0,0,0.3);
 }
 
-/* ===============================================
-   CE BLOC EST ESSENTIEL POUR LE MODE SOMBRE
-   ===============================================
+/* CE BLOC EST OBLIGATOIRE POUR LE MODE SOMBRE
 */
 [data-theme="dark"] {
     /* Thème Sombre */
@@ -47,7 +45,7 @@
     --color-text-link: #e0e0e0;
     --color-text-input: #e0e0e0;
     --color-job-title: #ffffff;
-    --color-accent: #00d4ff; /* Inchangé */
+    --color-accent: #00d4ff; 
 
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
@@ -70,7 +68,7 @@
     --toggle-slider-bg: #444;
     --toggle-slider-shadow: none;
 }
-/* =============================================== */
+/* FIN DU BLOC MODE SOMBRE */
 
 
 /* --- Styles de base et Reset --- */
@@ -80,7 +78,6 @@
     box-sizing: border-box;
 }
 
-/* Scroll fluide natif (ne cause pas de conflit) */
 html {
     scroll-behavior: smooth;
 }
@@ -163,7 +160,7 @@ body {
     transition: opacity 0.3s;
 }
 
-.orb1 {
+.orb1, .orb2, .orb3 {
     width: 500px;
     height: 500px;
     background: linear-gradient(45deg, #00d4ff, #0099ff);
@@ -171,7 +168,6 @@ body {
     left: -200px;
     animation-delay: 0s;
 }
-
 .orb2 {
     width: 400px;
     height: 400px;
@@ -180,7 +176,6 @@ body {
     right: -150px;
     animation-delay: -7s;
 }
-
 .orb3 {
     width: 350px;
     height: 350px;
