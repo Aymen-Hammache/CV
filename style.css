@@ -412,12 +412,18 @@ h2::after {
     transition: width 0.3s;
 }
 
+/*
+   ↓↓↓ C'EST ICI LA MODIFICATION ↓↓↓
+*/
 .skill-item:hover {
     background: rgba(0, 212, 255, 0.05); 
     border-color: rgba(0, 212, 255, 0.3);
-    transform: translateX(10px);
+    /* La ligne "transform: translateX(10px);" a été supprimée */
     color: var(--color-text-primary);
 }
+/*
+   ↑↑↑ C'EST ICI LA MODIFICATION ↑↑↑
+*/
 
 .skill-item:hover::before {
     width: 100%;
