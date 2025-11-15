@@ -395,7 +395,7 @@ h2::after {
     padding: 20px 25px;
     border-radius: 20px;
     border: 1px solid var(--item-border);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    /* MODIFICATION 1: La ligne 'transition: all 0.4s...' a été SUPPRIMÉE d'ici. */
     position: relative;
     overflow: hidden;
     color: var(--color-text-secondary); 
@@ -409,25 +409,26 @@ h2::after {
     width: 4px;
     height: 100%;
     background: linear-gradient(180deg, #00d4ff, #a855f7);
-    transition: width 0.3s;
+    /* MODIFICATION 2: La ligne 'transition: width 0.3s;' a été SUPPRIMÉE d'ici. */
 }
 
-/*
-   ↓↓↓ C'EST ICI LA MODIFICATION ↓↓↓
-*/
+
 .skill-item:hover {
     background: rgba(0, 212, 255, 0.05); 
     border-color: rgba(0, 212, 255, 0.3);
-    /* La ligne "transform: translateX(10px);" a été supprimée */
     color: var(--color-text-primary);
+    
+    /* MODIFICATION 3: Le 'transform' (saut) et la 'transition' (animation) sont AJOUTÉS ici. */
+    transform: translateX(10px); 
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-/*
-   ↑↑↑ C'EST ICI LA MODIFICATION ↑↑↑
-*/
 
 .skill-item:hover::before {
     width: 100%;
     opacity: 0.1;
+
+    /* MODIFICATION 4: La 'transition' de la barre est AJOUTÉE ici. */
+    transition: width 0.3s;
 }
 
 /* --- Onglets (Tabs) Expériences --- */
