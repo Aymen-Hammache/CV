@@ -3,8 +3,6 @@
 **Alternant Informatique**
 Sigma Net Santé / CFAI Loire-Drôme-Ardèche — Saint-Étienne
 
-**Email :** contact.hammache.aymen@gmail.com
-
 **LinkedIn :** [linkedin.com/in/ahammache](https://www.linkedin.com/in/ahammache)
 
 **Blog :** [technotesdaymen.hashnode.dev](https://technotesdaymen.hashnode.dev)
@@ -70,3 +68,11 @@ Pôle Formation CFAI AFPI Loire-Drôme-Ardèche
 **Baccalauréat Professionnel – Systèmes Numériques**
 Lycée Le Marais Sainte Thérèse
 *2022 – 2025*
+
+## 🧪 Auto‑évaluation
+W3C : 0 erreur / X avertissements (principaux points).
+Outiref : H1 unique, hiérarchie H2–H6 correcte (observations).
+PageSpeed (mobile) : Performance XX, Accessibilité XX, Bonnes pratiques XX, SEO XX.
+Améliorations effectuées entre V1 et finale :
+…
+…
