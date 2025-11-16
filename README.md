@@ -77,5 +77,6 @@ Outiref : H1 unique, hiérarchie H2–H6 correcte (observations).
 PageSpeed (mobile) : Performance 98, Accessibilité 98, Bonnes pratiques 100, SEO 100.
 
 Améliorations effectuées entre V1 et finale :
-…
-…
+- Hiérarchisation des balise <h> </h>
+- Modification du titre et de la description pour SEO
+- Ajout de fonctionnalités
