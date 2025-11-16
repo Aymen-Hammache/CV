@@ -70,9 +70,12 @@ Lycée Le Marais Sainte Thérèse
 *2022 – 2025*
 
 ## 🧪 Auto‑évaluation
-W3C : 0 erreur / X avertissements (principaux points).
+W3C : 0 erreur / 0 avertissements (principaux points).
+
 Outiref : H1 unique, hiérarchie H2–H6 correcte (observations).
-PageSpeed (mobile) : Performance XX, Accessibilité XX, Bonnes pratiques XX, SEO XX.
+
+PageSpeed (mobile) : Performance 98, Accessibilité 98, Bonnes pratiques 100, SEO 100.
+
 Améliorations effectuées entre V1 et finale :
 …
 …
